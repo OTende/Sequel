@@ -10,4 +10,18 @@
         android:name="com.example.sequel.ui.fragments.LectureFragment"
         android:label="fragment_lecture"
         tools:layout="@layout/fragment_lecture" />
+    <fragment
+        android:id="@+id/practiceFragment"
+        android:name="com.example.sequel.ui.fragments.PracticeFragment"
+        android:label="fragment_practice"
+        tools:layout="@layout/fragment_practice" >
+        <action
+            android:id="@+id/action_practiceFragment_to_fragmentPracticeCompletion"
+            app:destination="@id/fragmentPracticeCompletion" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentPracticeCompletion"
+        android:name="com.example.sequel.ui.fragments.FragmentPracticeCompletion"
+        android:label="fragment_practice_completion"
+        tools:layout="@layout/fragment_practice_completion" />
 </navigation>

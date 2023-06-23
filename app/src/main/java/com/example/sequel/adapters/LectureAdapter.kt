@@ -9,7 +9,10 @@ import javax.inject.Inject
 
 class LectureAdapter @Inject constructor() : BaseTextAdapter<Lecture, LectureListItemBinding>() {
     override fun bind(holder: BaseTextViewHolder, item: Lecture) {
-        holder.binding.lectureTv.text = item.header
+        holder.binding.apply {
+            headerTv.text = item.header
+            mainText.text = item.text
+        }
     }
 
     override fun inflateViewBinding(

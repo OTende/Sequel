@@ -5,7 +5,7 @@ import com.example.sequel.data.Lecture
 import com.example.sequel.data.Practice
 import retrofit2.http.GET
 
-const val BASE_URL = "https://raw.githubusercontent.com/OTende/SQLTrainer/master/text/"
+const val BASE_URL = "https://raw.githubusercontent.com/OTende/Sequel/main/app/src/main/res/"
 
 interface DataService {
     @GET("lectures.txt")

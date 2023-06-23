@@ -5,9 +5,10 @@ import androidx.room.PrimaryKey
 
 @Entity
 class Lecture(
+//    @PrimaryKey(autoGenerate = true)
+//    val id: Int,
     @PrimaryKey
-    var id: Int? = null,
+    val header: String,
     text: String,
-    topic: String,
-    val header: String
+    topic: String
 ) : BaseSqlData(text, topic)

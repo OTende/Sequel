@@ -4,7 +4,7 @@
         android:title="@string/lectures"
         android:icon="@drawable/baseline_menu_book_24" />
 
-    <item android:id="@+id/action_settings"
+    <item android:id="@+id/practiceFragment"
         android:title="@string/practices"
         android:icon="@drawable/baseline_edit_24" />
 </menu>
