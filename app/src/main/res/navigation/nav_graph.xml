@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentPracticeCompletion"
-        android:name="com.example.sequel.ui.fragments.FragmentPracticeCompletion"
+        android:name="com.example.sequel.ui.fragments.PracticeCompletionFragment"
         android:label="fragment_practice_completion"
         tools:layout="@layout/fragment_practice_completion" />
 </navigation>
