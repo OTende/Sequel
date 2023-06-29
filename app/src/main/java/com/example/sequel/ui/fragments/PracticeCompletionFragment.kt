@@ -1,69 +1,74 @@
 package com.example.sequel.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.Toast
-import androidx.core.view.get
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.sequel.databinding.FragmentPracticeCompletionBinding
 import com.example.sequel.ui.viewmodels.MainViewModel
 
-class FragmentPracticeCompletion : Fragment() {
+private const val SELECTED_ID_KEY = "Selected Id Key"
+
+class PracticeCompletionFragment : Fragment() {
     private var _binding: FragmentPracticeCompletionBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: MainViewModel by activityViewModels()
 
     private var practiceId = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPracticeCompletionBinding.inflate(inflater, container, false)
-        setupUi(practiceId)
+        setupUi()
+
         if (savedInstanceState != null) {
-            practiceId = savedInstanceState.getInt("asd")
+            practiceId = savedInstanceState.getInt(SELECTED_ID_KEY)
             binding.answersRg.check(practiceId)
         }
+
         return binding.root
     }
 
-    private fun setupUi(selectedIndex: Int) {
+    private fun setupUi() {
         val id = requireArguments().getInt(PRACTICE_COMPLETION_KEY)
         val practice = viewModel.getPractice(id)
+        val buttonList = mutableListOf<RadioButton>()
+
         for (i in 0 until practice.answers.size) {
-//            practiceViewModel.practiceId = i
             val button = RadioButton(requireContext())
-            button.text = practice.answers[i]
+            button.text = practice.answers[i] // practice.answers[i]
             button.id = i
             button.setOnCheckedChangeListener { _, _ ->
                 binding.nextButton.isEnabled = true
-//                practiceViewModel.practiceId = practice.answers[i]
             }
-            binding.answersRg.addView(button)
-        }
-//        binding.answersRg.check(selectedIndex)
-//        binding.answersRg[selectedIndex] = true
-        binding.answersRg.setOnCheckedChangeListener { _, checkedId ->
-            practiceId = checkedId
-            Toast.makeText(requireContext(), "$checkedId", Toast.LENGTH_LONG).show()
+            buttonList.add(button)
         }
 
-//        binding.nextButton.setOnClickListener {
-//            if (practice.answers[0] == practiceViewModel.practiceId)
-//                Toast.makeText(requireContext(), "asd", Toast.LENGTH_LONG).show()
-//            if (binding.answersRg.check practice.answers[0])
-//        }
+        buttonList.shuffled().forEach {
+            binding.answersRg.addView(it)
+        }
+
         binding.questionTv.text = practice.text
+
+        binding.nextButton.setOnClickListener {
+            if (binding.answersRg.checkedRadioButtonId == 0) {
+                viewModel.completePractice(id)
+                Toast.makeText(requireContext(), "asd", Toast.LENGTH_SHORT).show()
+                viewModel.updateLists()
+            }
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("asd", practiceId)
+        outState.putInt(SELECTED_ID_KEY, practiceId)
     }
 
     override fun onDestroy() {
