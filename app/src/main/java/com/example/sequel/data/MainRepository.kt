@@ -26,13 +26,8 @@ class MainRepository @Inject constructor(
 
     suspend fun getLectures() = dao.getLectures()
     suspend fun getPractices() = dao.getPractices()
-    suspend fun savePractices(practices: List<Practice>) = dao.insertPractices(practices)
-    suspend fun saveLectures(lectures: List<Lecture>) = dao.insertLectures(lectures)
+    private suspend fun savePractices(practices: List<Practice>) = dao.insertPractices(practices)
+    private suspend fun saveLectures(lectures: List<Lecture>) = dao.insertLectures(lectures)
     suspend fun completePractice(id: Int) = dao.completePracticeById(id)
-    suspend fun getPractice(id: Int): Practice = coroutineScope {
-        val practice = async {
-            dao.getPracticeById(id)
-        }
-        practice.await()
-    }
+    suspend fun getPractice(id: Int): Practice = dao.getPracticeById(id)
 }
