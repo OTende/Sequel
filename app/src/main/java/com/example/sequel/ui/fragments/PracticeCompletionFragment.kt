@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.example.sequel.R
 import com.example.sequel.databinding.FragmentPracticeCompletionBinding
 import com.example.sequel.ui.viewmodels.MainViewModel
 
@@ -41,13 +44,22 @@ class PracticeCompletionFragment : Fragment() {
         val practice = viewModel.getPractice(id)
         val buttonList = mutableListOf<RadioButton>()
 
+        // Fill radio group
         for (i in 0 until practice.answers.size) {
             val button = RadioButton(requireContext())
-            button.text = practice.answers[i] // practice.answers[i]
+            button.text = practice.answers[i]
             button.id = i
+            button.textSize = 20F
+
+            button.layoutParams = ConstraintLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+
             button.setOnCheckedChangeListener { _, _ ->
                 binding.nextButton.isEnabled = true
             }
+
             buttonList.add(button)
         }
 
@@ -55,15 +67,31 @@ class PracticeCompletionFragment : Fragment() {
             binding.answersRg.addView(it)
         }
 
-        binding.questionTv.text = practice.text
-
         binding.nextButton.setOnClickListener {
-            if (binding.answersRg.checkedRadioButtonId == 0) {
+            val checkedId = binding.answersRg.checkedRadioButtonId
+            // If the answer is correct
+            if (checkedId == 0) {
+                binding.answersRg.findViewById<RadioButton>(checkedId).apply {
+                    this.setBackgroundColor(resources.getColor(R.color.color_correct, context?.theme))
+                    this.setTextColor(resources.getColor(R.color.black, context?.theme))
+                }
+
                 viewModel.completePractice(id)
-                Toast.makeText(requireContext(), "asd", Toast.LENGTH_SHORT).show()
-                viewModel.updateLists()
+                viewModel.updatePracticeList()
+                binding.nextButton.text = getText(R.string.return_to_menu)
+                Toast.makeText(context, getString(R.string.correct), Toast.LENGTH_LONG).show()
+
+                binding.nextButton.setOnClickListener {
+                    findNavController().popBackStack()
+                }
+            } else {
+                binding.answersRg.findViewById<RadioButton>(checkedId)
+                    .setBackgroundColor(resources.getColor(R.color.color_wrong, context?.theme))
+                Toast.makeText(context, getString(R.string.error), Toast.LENGTH_LONG).show()
             }
         }
+
+        binding.questionTv.text = practice.text
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
