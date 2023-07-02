@@ -31,8 +31,20 @@
 
     <style name="Base.Theme.Sequel.HeaderTextView">
         <item name="color">?attr/colorOnPrimary</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <style name="Base.Theme.Sequel.TextView">
+        <item name="color">?attr/colorOnPrimary</item>
+        <item name="android:textSize">@dimen/common_text_size</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <style name="Base.CardView.Universal">
+        <item name="android:elevation">6dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="cardCornerRadius">4dp</item>
     </style>
 
     <style name="Theme.Sequel" parent="Base.Theme.Sequel" />
