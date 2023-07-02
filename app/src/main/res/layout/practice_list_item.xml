@@ -8,6 +8,7 @@
         android:id="@+id/question_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        style="@style/Base.Theme.Sequel.TextView"
         app:layout_constraintEnd_toStartOf="@id/practice_checked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
