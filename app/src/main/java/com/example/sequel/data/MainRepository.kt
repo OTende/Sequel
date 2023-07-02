@@ -5,10 +5,9 @@ import com.example.sequel.network.DataService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
@@ -18,8 +17,10 @@ class MainRepository @Inject constructor(
     init {
         CoroutineScope(Job()).launch {
             withContext(Dispatchers.Default) {
-                saveLectures(retrofit.getLectures())
-                savePractices(retrofit.getPractices())
+                try {
+                    saveLectures(retrofit.getLectures())
+                    savePractices(retrofit.getPractices())
+                } catch (_: Exception) {}
             }
         }
     }
