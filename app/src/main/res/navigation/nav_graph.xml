@@ -9,7 +9,11 @@
         android:id="@+id/lectureFragment"
         android:name="com.example.sequel.ui.fragments.LectureFragment"
         android:label="fragment_lecture"
-        tools:layout="@layout/fragment_lecture" />
+        tools:layout="@layout/fragment_lecture" >
+        <action
+            android:id="@+id/action_lectureFragment_to_fullLectureFragment"
+            app:destination="@id/fullLectureFragment" />
+    </fragment>
     <fragment
         android:id="@+id/practiceFragment"
         android:name="com.example.sequel.ui.fragments.PracticeFragment"
@@ -24,4 +28,9 @@
         android:name="com.example.sequel.ui.fragments.PracticeCompletionFragment"
         android:label="fragment_practice_completion"
         tools:layout="@layout/fragment_practice_completion" />
+    <fragment
+        android:id="@+id/fullLectureFragment"
+        android:name="com.example.sequel.ui.fragments.FullLectureFragment"
+        android:label="fragment_full_lecture"
+        tools:layout="@layout/fragment_full_lecture" />
 </navigation>
