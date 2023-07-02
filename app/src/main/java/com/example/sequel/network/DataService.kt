@@ -1,6 +1,5 @@
 package com.example.sequel.network
 
-import android.widget.Toast
 import com.example.sequel.data.Lecture
 import com.example.sequel.data.Practice
 import retrofit2.http.GET
