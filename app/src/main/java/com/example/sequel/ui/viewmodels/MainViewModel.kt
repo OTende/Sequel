@@ -33,13 +33,13 @@ class MainViewModel @Inject constructor(private val mainRepository: MainReposito
     }
 
     init {
-        updateLists()
-    }
-
-    fun updateLists() {
         viewModelScope.launch {
             _lectureList.postValue(mainRepository.getLectures())
         }
+        updatePracticeList()
+    }
+
+    fun updatePracticeList() {
         viewModelScope.launch {
             _practiceList.postValue(mainRepository.getPractices())
         }
